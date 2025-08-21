@@ -1,0 +1,53 @@
+[user]
+	name = Alejandro Ortiz
+	email = janoflute@gmail.com
+[core]
+	editor = nvim
+	pager = delta
+	quotepath = false
+[init]
+	defaultBranch = main
+
+[delta]
+	navigate = true
+	side-by-side = true
+	syntax-theme = Dracula
+	line-numbers = true
+	file-style = yellow bold
+	hunk-header-style = magenta bold
+
+[interactive]
+	diffFilter = delta --color-only
+
+[merge]
+	tool = nvimdiff
+	conflictstyle = diff3
+	keepBackup = false
+
+[diff]
+	colorMoved = default
+
+[color]
+	ui = true
+[alias]
+	# Navegación
+	co = checkout
+	br = branch
+	s = status --short
+	st = status -sb
+	ci = commit
+	amend = commit --amend --no-edit
+	last = log -1 HEAD
+	undo = reset --soft HEAD~1
+	save = "!git add -A && git commit -m 'WIP'"
+	# Log bonito
+	lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	# Diffs rápidos
+	d = diff
+	ds = diff --staged
+	dw = diff -w
+	# Buscar texto en historial
+	find = "!f() { git log -S\"$1\" --source --all; }; f"
+
+[pull]
+	rebase = true
