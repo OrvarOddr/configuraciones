@@ -1,0 +1,318 @@
+# Chevron Glance - 2 pills + arrow to newline (sin tildes en comentarios)
+"$schema" = "https://starship.rs/config-schema.json"
+add_newline = false
+palette = "chevron_glance"
+
+
+format = """
+[](fg:sec)\
+$sudo$os$jobs$hostname$localip\
+$directory\
+$git_branch$git_commit$git_state$git_status\
+$docker_context$kubernetes$container\
+$package\
+$nodejs$bun$deno\
+$python$conda$poetry\
+$java$gradle$scala$dotnet$swift$dart$golang$rust$zig$lua$php$ruby$elixir$erlang\
+$helm$terraform$pulumi$aws$gcloud$azure\
+$nix_shell$direnv$shell\
+[](fg:prim)\
+$fill\
+[](fg:sec)\
+$username\
+[](fg:prim)\
+$fill\
+[](fg:sec)\
+$memory_usage$battery$time$status\
+[](fg:prim)
+$cmd_duration
+$character
+"""
+
+[palettes.chevron_glance]
+prim   = "#022b3a"
+sec    = "#011f2a"
+primt  = "#d6e8ee"
+sudo   = "#ff6b6b"
+user   = "#00b4d8"
+host   = "#0077b6"
+ip     = "#0077b6"
+duration = "#90e0ef"
+bbg    = "#011f2a"
+bfg    = "#d6e8ee"
+
+
+
+
+
+# ===== estilos base para que todas las pills sean continuas (sin chevrons internos) =====
+# todos los modulos de las pills usan bg:prim y texto primt, asi se ven como una sola capsula
+
+# -------- core --------
+[sudo]
+format = "[$symbol]($style)"
+symbol = " "
+style = "fg:sudo bg:prim"
+disabled = false
+
+[os]
+format = "[$symbol ]($style)"
+style = "fg:primt bg:prim"
+disabled = false
+
+[os.symbols]
+Arch = ""
+EndeavourOS = ""
+Linux = ""
+Macos = ""
+Ubuntu = ""
+Windows = ""
+Unknown = ""
+
+[jobs]
+format = "[ $number ](fg:primt bg:prim)"
+symbol_threshold = 1
+number_threshold = 2
+disabled = false
+
+[username]
+format = "[ $user ](fg:primt bold bg:prim)"
+show_always = true
+disabled = false
+
+[hostname]
+format = "[@$hostname ](fg:primt bold bg:prim)"
+ssh_only = true
+disabled = false
+
+[localip]
+format = "[ $localipv4 ](fg:primt bold bg:prim)"
+ssh_only = true
+disabled = false
+
+[directory]
+format = "[ $path ](fg:primt bold bg:prim)"
+home_symbol = " ~"
+truncate_to_repo = true
+truncation_length = 2
+truncation_symbol = "…/"
+use_os_path_sep = true
+disabled = false
+
+[directory.substitutions]
+"Downloads" = " "
+"Music"     = " "
+"Pictures"  = " "
+".config"   = ". "
+
+# -------- git (sin chevrons, misma pill) --------
+[git_branch]
+format = "[  $branch(:$remote_branch) ](fg:primt bg:prim)"
+disabled = false
+
+[git_commit]
+format = "[  $hash ](fg:primt bg:prim)"
+commit_hash_length = 7
+only_detached = false
+tag_disabled = false
+disabled = false
+
+[git_state]
+format = "[ $state($progress_current/$progress_total) ](fg:primt bg:prim)"
+disabled = false
+
+[git_metrics]
+format = "[ +$added -$deleted ](fg:primt bg:prim)"
+disabled = true
+
+[git_status]
+format = "[ $all_status$ahead_behind ](fg:primt bg:prim)"
+disabled = false
+
+# -------- containers / orchestration / iac / cloud --------
+[docker_context]
+format = "[  $context ](fg:primt bg:prim)"
+only_with_files = true
+disabled = false
+
+[kubernetes]
+format = "[ ⎈ $context(::$namespace) ](fg:primt bg:prim)"
+disabled = false
+
+[container]
+format = "[ 📦 $name ](fg:primt bg:prim)"
+disabled = false
+
+[helm]
+format = "[  helm ](fg:primt bg:prim)"
+disabled = false
+
+[terraform]
+format = "[ tf $version ](fg:primt bg:prim)"
+detect_files = ["main.tf","terraform.tf","terraform.tfvars"]
+disabled = false
+
+[pulumi]
+format = "[ pulumi ](fg:primt bg:prim)"
+disabled = false
+
+[aws]
+format = "[  $profile($region) ](fg:primt bg:prim)"
+disabled = false
+
+[gcloud]
+format = "[  $project ](fg:primt bg:prim)"
+disabled = false
+
+[azure]
+format = "[ az:$subscription ](fg:primt bg:prim)"
+disabled = false
+
+# -------- runtimes / pkg managers --------
+[package]
+format = "[ 📦 $version ](fg:primt bg:prim)"
+display_private = true
+disabled = false
+
+[nodejs]
+format = "[  $version ](fg:primt bg:prim)"
+disabled = false
+
+[bun]
+format = "[ bun $version ](fg:primt bg:prim)"
+disabled = false
+
+[deno]
+format = "[ deno $version ](fg:primt bg:prim)"
+disabled = false
+
+[python]
+format = "[  $pyenv_prefix$version ($virtualenv) ](fg:primt bg:prim)"
+pyenv_version_name = true
+disabled = false
+
+[conda]
+format = "[ conda:$environment ](fg:primt bg:prim)"
+disabled = false
+
+[java]
+format = "[  $version ](fg:primt bg:prim)"
+detect_files = ["pom.xml","build.gradle","build.gradle.kts"]
+disabled = false
+
+[gradle]
+format = "[ gradle ](fg:primt bg:prim)"
+disabled = false
+
+[scala]
+format = "[ scala $version ](fg:primt bg:prim)"
+disabled = false
+
+[dotnet]
+format = "[  $version ](fg:primt bg:prim)"
+heuristic = true
+disabled = false
+
+[swift]
+format = "[ swift $version ](fg:primt bg:prim)"
+disabled = false
+
+[dart]
+format = "[ dart $version ](fg:primt bg:prim)"
+disabled = false
+
+[golang]
+format = "[ go $version ](fg:primt bg:prim)"
+disabled = false
+
+[rust]
+format = "[  $version ](fg:primt bg:prim)"
+disabled = false
+
+[zig]
+format = "[ zig $version ](fg:primt bg:prim)"
+disabled = false
+
+[lua]
+format = "[ lua $version ](fg:primt bg:prim)"
+disabled = false
+
+[php]
+format = "[  $version ](fg:primt bg:prim)"
+disabled = false
+
+[ruby]
+format = "[  $version ](fg:primt bg:prim)"
+disabled = false
+
+[elixir]
+format = "[  $version ](fg:primt bg:prim)"
+disabled = false
+
+[erlang]
+format = "[ erl $version ](fg:primt bg:prim)"
+disabled = false
+
+# -------- env managers / shell --------
+[nix_shell]
+format = "[ nix($name) ](fg:primt bg:prim)"
+disabled = false
+[direnv]
+format = "[ direnv ](fg:primt bg:prim)"
+disabled = false
+[shell]
+format = "[ $indicator ](fg:primt bg:prim)"
+bash_indicator = "bash"
+fish_indicator = "fish"
+zsh_indicator = "zsh"
+powershell_indicator = "ps"
+disabled = false
+
+# -------- pill derecha: recursos / estado --------
+[memory_usage]
+format = "[  $ram_pct ](fg:primt bg:prim)"
+threshold = 75
+disabled = false
+
+[battery]
+format = "[ $symbol $percentage ](fg:primt bg:prim)"
+disabled = false
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+unknown_symbol = ""
+empty_symbol = ""
+[[battery.display]]
+threshold = 101
+style = "fg:primt bg:prim"
+[[battery.display]]
+threshold = 20
+style = "bold fg:sudo bg:prim"
+
+[time]
+format = "[  $time ](fg:primt bg:prim)"
+time_format = "%H:%M"
+use_12hr = false
+disabled = false
+
+[status]
+format = "[  ](fg:primt bg:prim)"
+disabled = false
+
+# -------- debajo de las pills --------
+[cmd_duration]
+format = "[ $duration ](fg:duration)"
+min_time = 500
+disabled = false
+
+[line_break]
+disabled = true
+
+[character]
+success_symbol = "[ 󱞪](bold fg:prim)"
+error_symbol   = "[ 󱞪](bold fg:sudo)"
+vimcmd_symbol  = "[ ](bold fg:prim)"
+vimcmd_replace_one_symbol = "[ ](bold fg:purple)"
+vimcmd_replace_symbol     = "[ ](bold fg:purple)"
+vimcmd_visual_symbol      = "[ ](bold fg:yellow)"
+disabled = false

@@ -18,7 +18,7 @@ plugins=(
 )
 
 # Tema (si luego quieres Starship, lo inicializamos al final)
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 source "$ZSH/oh-my-zsh.sh"
 
